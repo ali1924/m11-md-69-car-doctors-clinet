@@ -3,15 +3,15 @@ import person from '../../../assets/images/about_us/person.jpg';
 import parts from '../../../assets/images/about_us/parts.jpg';
 const About = () => {
     return (
-        <div className="hero min-h-screen lg:h-[527px] lg:mb-24 mt-3">
+        <div className="hero lg:h-[760px] lg:mb-24 mt-3 bg-base-200">
             <div className="hero-content flex-col lg:flex-row">
                 <div className='lg:w-1/2 relative'>
                     <img src={person} className="w-3/4 h-full rounded-lg shadow-2xl" />                
                     <img src={parts} className="w-1/2 absolute right-3 top-1/2 h-full rounded-lg shadow-2xl border-8 border-white" />                
                 </div>
 
-                <div className='lg:w-1/2 mt-24 space-y-5 p-4'>
-                    <h3 className='text-orange-400 font-bold text-2xl'>About Us</h3>
+                <div className='lg:w-1/2 md:mt-24 mt-24 space-y-5 p-4'>
+                    <h3 className='text-orange-400 font-bold text-xl lg:text-2xl'>About Us</h3>
                     <h1 className="lg:text-5xl text-3xl font-bold">
                         We are qualified & of experience in this field
                     </h1>
