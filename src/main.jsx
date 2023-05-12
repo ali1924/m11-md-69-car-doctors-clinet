@@ -9,6 +9,8 @@ import {
 import Main from './components/Layout/Main.jsx';
 import Home from './pages/Home/Home/Home.jsx';
 import Login from './pages/Login/Login.jsx';
+import SignUp from './pages/SignUp/SignUp.jsx';
+import AuthProvider from './pages/providers/AuthProvider/AuthProvider.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element:<Login></Login>
+      },
+      {
+        path: 'sign-up',
+        element:<SignUp></SignUp>
       }
     ]
   }
@@ -30,6 +36,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   //   <App />
   // </React.StrictMode>,
   <div className='max-w-7xl mx-auto'>
-    <RouterProvider router={router}></RouterProvider>
+    <AuthProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </AuthProvider>
   </div>
 )

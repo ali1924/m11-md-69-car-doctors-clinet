@@ -1,13 +1,13 @@
 import React from 'react';
-import img from '../../assets/images/login/login.svg';
 import { Link } from 'react-router-dom';
-const Login = () => {
-    const handleLogin = (event) => {
+import img from '../../assets/images/login/login.svg';
+const SignUp = () => {
+    const handleSignUp = (event) => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
+        console.log(name, email, password);
     }
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -17,8 +17,19 @@ const Login = () => {
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">
-                        <h1 className="text-3xl text-center font-bold">Login</h1>
-                        <form onSubmit={handleLogin}>
+                        <h1 className="text-3xl text-center font-bold">Sign Up</h1>
+                        <form onSubmit={handleSignUp}>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Name</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name='name'
+                                    placeholder="Your name"
+                                    className="input input-bordered"
+                                />
+                            </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
@@ -47,14 +58,14 @@ const Login = () => {
                             <div className="form-control mt-6">
                                 <input
                                     type="submit"
-                                    value="Sign In"
+                                    value="Sign Up"
                                     className="btn hover:bg-orange-400 bg-[#FF3811]"
                                 />
                             </div>
                         </form>
-                        <p className='text-xl my-4 text-center'>New to Car Doctor?
+                        <p className='text-xl my-4 text-center'>Already have an account? 
                             <span className='text-orange-600 font-bold'>
-                                <Link to='/sign-up'> Sign Up</Link>
+                                <Link to='/login'> Login</Link>
                             </span>
                         </p>
                     </div>
@@ -64,4 +75,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SignUp;
