@@ -3,7 +3,7 @@ import Swal from 'sweetalert2'
 import { useLoaderData } from 'react-router-dom';
 const BookService = () => {
     const service = useLoaderData();
-    const { _id, price, title } = service;
+    const { _id, price, title,img } = service;
     const handleBookService = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -18,6 +18,7 @@ const BookService = () => {
             service: title,
             service_id:_id,
             email,
+            img,
             date,
         }
         // console.log(order);
