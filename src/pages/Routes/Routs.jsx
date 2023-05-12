@@ -7,6 +7,7 @@ import Services from "../Home/Services/Services";
 import CheckOut from "../CheckOut/CheckOut";
 import BookService from "../BookService/BookService";
 import Bookings from "../Bookings/Bookings";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'bookings',
-                element:<Bookings></Bookings>
+                element:<PrivateRoute><Bookings></Bookings></PrivateRoute>
             },
             {
                 path: 'checkout/:id',
