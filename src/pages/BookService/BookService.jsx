@@ -1,4 +1,5 @@
 import React from 'react';
+import Swal from 'sweetalert2'
 import { useLoaderData } from 'react-router-dom';
 const BookService = () => {
     const service = useLoaderData();
@@ -12,13 +13,36 @@ const BookService = () => {
         const date = form.date.value;
         const message = form.message.value;
         const order = {
-            name: name,
+            customerName: name,
             price,
+            service: title,
+            service_id:_id,
             email,
             date,
-            message,
         }
-        console.log(order);
+        // console.log(order);
+
+        // call mongodb post api
+        fetch('http://localhost:5000/bookings', {
+            method: "POST",
+            headers: {
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(order)
+            
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.insertedId) {
+                    Swal.fire({
+                        title: 'Congratulations',
+                        text: 'Booking Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    })
+                }
+        })
     }
     return (
         <div className='bg-base-200 lg:p-24 p-3'>

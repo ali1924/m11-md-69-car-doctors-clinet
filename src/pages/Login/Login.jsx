@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import img from '../../assets/images/login/login.svg';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../providers/AuthProvider/AuthProvider';
 const Login = () => {
-    const { signIn } = useContext(AuthContext);
+    const {user,signIn } = useContext(AuthContext);
     // console.log(signIn);
     const handleLogin = (event) => {
         event.preventDefault();
@@ -17,10 +18,21 @@ const Login = () => {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
-                alert('sign in successfully')
+                Swal.fire({
+                    title: 'Congratulations',
+                    text: 'Login Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                })
             }).catch(error => {
                 const errorMessage = error.message;
                 console.log(errorMessage);
+                Swal.fire({
+                    title: 'Congratulations',
+                    text: { errorMessage },
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
         })
     }
     return (

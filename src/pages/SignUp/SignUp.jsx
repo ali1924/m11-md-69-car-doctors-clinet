@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import img from '../../assets/images/login/login.svg';
 import { AuthContext } from '../providers/AuthProvider/AuthProvider';
 const SignUp = () => {
@@ -17,9 +18,21 @@ const SignUp = () => {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
+                Swal.fire({
+                    title: 'Congratulations',
+                    text: 'Sign Up Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                })
             }).catch(error => {
                 const errorMessage = error.message;
                 console.log(errorMessage);
+                Swal.fire({
+                    title: 'Congratulations',
+                    text: { errorMessage },
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
         })
     }
     return (
