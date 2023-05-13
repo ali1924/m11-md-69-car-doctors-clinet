@@ -3,6 +3,7 @@ import img from '../../assets/images/login/login.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../providers/AuthProvider/AuthProvider';
+import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 const Login = () => {
     const { user, signIn } = useContext(AuthContext);
     // location 
@@ -23,31 +24,13 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 // console.log(user);
-                // navigate(from,{replace:true})
+                navigate(from, { replace: true });
                 Swal.fire({
                     title: 'Congratulations',
                     text: 'Login Successfully',
                     icon: 'success',
                     confirmButtonText: 'OK'
                 })
-                // jwt token
-                const loggedUser = {
-                    email: user.email,
-                };
-                fetch('http://localhost:5000/jwt', {
-                    method: "POST",
-                    headers: {
-                        'content-type':'application/json'
-                    },
-                    body: JSON.stringify(loggedUser),
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log('jwt response: ', data);
-                        // Warning: local storage is not the best (2nd best place) to store access token
-                        localStorage.setItem('car-jwt-token', data.token);
-                        navigate(from, { replace: true });
-                    })
             }).catch(error => {
                 const errorMessage = error.message;
                 console.log(errorMessage);
@@ -107,8 +90,11 @@ const Login = () => {
                                 <Link to='/sign-up'> Sign Up</Link>
                             </span>
                         </p>
+                        <SocialLogin></SocialLogin>
                     </div>
+                    
                 </div>
+                
             </div>
         </div>
     );

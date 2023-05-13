@@ -14,7 +14,6 @@ const NavBar = () => {
                     icon: 'success',
                     confirmButtonText: 'OK'
                 })
-                localStorage.removeItem('car-jwt-token');
             })
             .catch(error => {
                 const errorMessage = error.message;
