@@ -1,23 +1,29 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
-const BookingRow = ({ booking }) => {
+const BookingRow = ({ booking, handleDeleteBooking }) => {
     console.log(booking);
-    const { customerName,service,price,img,date,email } = booking;
+    const { _id, service, price, img, date } = booking;
+    // delete
     return (
         <>
             {/* row 1 */}
             <tr>
                 <th>
-                    <label>
-                        <input type="checkbox" className="checkbox" />
-                    </label>
+                    <button onClick={() => handleDeleteBooking(_id)}>
+                        <FontAwesomeIcon className='w-6 h-6 bg-black p-2 text-white rounded rounded-full' icon={faXmark} />
+                    </button>
                 </th>
                 <td>
-                        <div className="avatar">
+                    <div className="avatar">
                         <div className="w-24 h-24 rounded">
-                            <img src={img} />
+                            {
+                                img && <img src={img} />
+                            }
                         </div>
-                        </div>
+                    </div>
                 </td>
                 <td>
                     {service}
@@ -27,7 +33,7 @@ const BookingRow = ({ booking }) => {
                 </td>
                 <td>{price}</td>
                 <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
+                    <button className="btn btn-ghost btn-xs">Details</button>
                 </th>
             </tr>
         </>
