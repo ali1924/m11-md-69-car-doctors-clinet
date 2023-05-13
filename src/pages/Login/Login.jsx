@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import img from '../../assets/images/login/login.svg';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../providers/AuthProvider/AuthProvider';
 const Login = () => {
     const { user, signIn } = useContext(AuthContext);
     // location 
     const location = useLocation();
+    const navigate = useNavigate();
+
     const from = location.state?.from?.pathname || '/';
     // console.log(signIn);
     const handleLogin = (event) => {
@@ -14,19 +16,38 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
+        // console.log(email, password);
 
         // login
         signIn(email, password)
             .then(result => {
-                const loggedUser = result.user;
-                console.log(loggedUser);
+                const user = result.user;
+                // console.log(user);
+                // navigate(from,{replace:true})
                 Swal.fire({
                     title: 'Congratulations',
                     text: 'Login Successfully',
                     icon: 'success',
                     confirmButtonText: 'OK'
                 })
+                // jwt token
+                const loggedUser = {
+                    email: user.email,
+                };
+                fetch('http://localhost:5000/jwt', {
+                    method: "POST",
+                    headers: {
+                        'content-type':'application/json'
+                    },
+                    body: JSON.stringify(loggedUser),
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('jwt response: ', data);
+                        // Warning: local storage is not the best (2nd best place) to store access token
+                        localStorage.setItem('car-jwt-token', data.token);
+                        navigate(from, { replace: true });
+                    })
             }).catch(error => {
                 const errorMessage = error.message;
                 console.log(errorMessage);
@@ -36,7 +57,7 @@ const Login = () => {
                     icon: 'error',
                     confirmButtonText: 'OK'
                 })
-        })
+            })
     }
     return (
         <div className="hero min-h-screen bg-base-200">
