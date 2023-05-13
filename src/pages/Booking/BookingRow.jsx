@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
-const BookingRow = ({ booking, handleDeleteBooking }) => {
+const BookingRow = ({ booking, handleDeleteBooking, handleConfirmBooking }) => {
     console.log(booking);
-    const { _id, service, price, img, date } = booking;
+    const { _id, service, price, img, date,status} = booking;
     // delete
     return (
         <>
@@ -33,7 +33,11 @@ const BookingRow = ({ booking, handleDeleteBooking }) => {
                 </td>
                 <td>{price}</td>
                 <th>
-                    <button className="btn btn-ghost btn-xs">Details</button>
+                    {
+                        status === 'confirm'
+                            ?<span className='text-xl text-orange-600'>Confirmed</span>
+                            : <button onClick={() => handleConfirmBooking(_id)} className="btn btn-ghost btn-xs">Confirm</button>
+                    }
                 </th>
             </tr>
         </>

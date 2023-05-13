@@ -5,14 +5,14 @@ import BookingRow from '../Booking/BookingRow';
 const Bookings = () => {
     const { user } = useContext(AuthContext);
     const [bookings, setBookings] = useState([]);
-    const url =`http://localhost:5000/bookings?email=${user?.email}`
+    const url = `http://localhost:5000/bookings?email=${user?.email}`
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
             .then(data => {
                 setBookings(data);
-        })
-    }, [])
+            })
+    }, [url])
     // console.log(bookings);
 
     //delete single booking
@@ -28,6 +28,31 @@ const Bookings = () => {
                     alert('deleted successfully');
                     const remaining = bookings.filter(booking => booking._id !== id);
                     setBookings(remaining);
+                }
+            })
+    }
+    // update
+    const handleConfirmBooking = (id) => {
+        console.log(id);
+
+        fetch(`http://localhost:5000/bookings/${id}`, {
+            method: "PATCH",
+            headers: {
+                'content-type':'application/json'
+            },
+            body:JSON.stringify({status:'confirm'})
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.modifiedCount) {
+                    // update status
+                    const update = bookings.find(booking => booking._id === id);
+                    update.status = 'confirm';
+                    const remaining = bookings.filter(booking => booking._id !== id);
+                    const newBookings = [update, ...remaining];
+                    setBookings(newBookings);
+
                 }
             })
     }
@@ -55,6 +80,7 @@ const Bookings = () => {
                                 key={booking._id}
                                 booking={booking}
                                 handleDeleteBooking={handleDeleteBooking}
+                                handleConfirmBooking={handleConfirmBooking}
                             ></BookingRow>)
                         }
                     </tbody>
