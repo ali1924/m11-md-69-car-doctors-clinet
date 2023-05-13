@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import img from '../../assets/images/login/login.svg';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../providers/AuthProvider/AuthProvider';
 const Login = () => {
-    const {user,signIn } = useContext(AuthContext);
+    const { user, signIn } = useContext(AuthContext);
+    // location 
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
     // console.log(signIn);
     const handleLogin = (event) => {
         event.preventDefault();
